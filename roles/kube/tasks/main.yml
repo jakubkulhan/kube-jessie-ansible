@@ -21,7 +21,7 @@
 - name: Make kubectl executable
   file: path=/usr/local/bin/kubectl owner=root group=root mode=0755
 
-- name: Download hyperkuber
+- name: Download hyperkube
   get_url: url='http://storage.googleapis.com/kubernetes-release/release/{{ kube_release }}/bin/linux/amd64/hyperkube' dest=/usr/local/bin/hyperkube
 - name: Make hyperkube executable
   file: path=/usr/local/bin/hyperkube owner=root group=root mode=0755
