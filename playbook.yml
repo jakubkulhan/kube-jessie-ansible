@@ -12,5 +12,9 @@
         home: /root
       - user: admin
         home: /home/admin
+    kubelet_bind_interface: eth0
+    # TODO
+    #kube_cloud_provider: aws
+
   roles:
     - kube-master
