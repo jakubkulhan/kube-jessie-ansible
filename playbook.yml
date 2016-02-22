@@ -6,5 +6,6 @@
   become_method: sudo
   vars:
     kube_release: v1.1.7
+    kube_master_ip: 127.0.0.1
   roles:
     - kube-master

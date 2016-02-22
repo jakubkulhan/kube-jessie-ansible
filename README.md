@@ -3,5 +3,5 @@
 ```sh
 $ cp inventory.example inventory
 # edit inventory file
-$ ansible-playbook -i inventory playbook.yml
+$ ansible-playbook -i inventory -e kube_master_ip=... playbook.yml
 ```

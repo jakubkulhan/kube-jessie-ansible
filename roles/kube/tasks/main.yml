@@ -27,13 +27,13 @@
   file: path=/usr/local/bin/hyperkube owner=root group=root mode=0755
 
 - name: Install kubelet service
-  copy: src=systemd/kubelet.service dest=/lib/systemd/system/kubelet.service
+  template: src=systemd/kubelet.service dest=/lib/systemd/system/kubelet.service
   notify: [ kubelet ]
 - name: Enable kubelet service
   command: systemctl enable kubelet.service
 
 - name: Install kube-proxy service
-  copy: src=systemd/kube-proxy.service dest=/lib/systemd/system/kube-proxy.service
+  template: src=systemd/kube-proxy.service dest=/lib/systemd/system/kube-proxy.service
   notify: [ kube-proxy ]
 - name: Enable kube-proxy service
   command: systemctl enable kube-proxy.service

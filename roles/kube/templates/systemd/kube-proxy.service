@@ -7,7 +7,7 @@ After=kubelet.service
 [Service]
 ExecStart=/usr/local/bin/hyperkube proxy \
 --proxy-mode=iptables \
---master=http://127.0.0.1:8080 \
+--master=http://{{ kube_master_ip }}:8080 \
 --v=2
 Restart=always
 RestartSec=10

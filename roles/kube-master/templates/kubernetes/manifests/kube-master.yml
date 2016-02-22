@@ -12,7 +12,7 @@ spec:
         - /hyperkube
         - apiserver
         - --portal-net=10.0.0.1/24
-        - --address=127.0.0.1
+        - --address={{ kube_master_ip }}
         - --etcd-servers=http://127.0.0.1:4001
         - --cluster-name=kubernetes
         - --service-node-port-range=0-65535
@@ -22,12 +22,12 @@ spec:
       command:
         - /hyperkube
         - controller-manager
-        - --master=127.0.0.1:8080
+        - --master={{ kube_master_ip }}:8080
         - --v=2
     - name: scheduler
       image: gcr.io/google_containers/hyperkube:{{ kube_release }}
       command:
         - /hyperkube
         - scheduler
-        - --master=127.0.0.1:8080
+        - --master={{ kube_master_ip }}:8080
         - --v=2
