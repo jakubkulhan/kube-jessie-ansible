@@ -1,0 +1,35 @@
+- name: Docker repo key
+  apt_key: keyserver=pool.sks-keyservers.net id=58118E89F3A912897C070ADBF76221572C52609D
+- name: Docker repo
+  apt_repository: repo='deb https://apt.dockerproject.org/repo debian-jessie main' state=present
+- name: Debian Stretch repo
+  apt_repository: repo='deb http://cloudfront.debian.net/debian stretch main'
+- name: /etc/apt/preferences
+  copy: src=apt/preferences dest=/etc/apt/preferences
+- name: Update APT cache
+  apt: update_cache=yes
+
+- name: Install Docker
+  apt: name=docker-engine state=latest
+  notify: [ docker ]
+- name: Install Etcd
+  apt: name=etcd state=latest
+  notify: [ etcd ]
+
+- name: Download kubectl
+  get_url: url='http://storage.googleapis.com/kubernetes-release/release/{{ kube_release }}/bin/linux/amd64/kubectl' dest=/usr/local/bin/kubectl
+- name: Make kubectl executable
+  file: path=/usr/local/bin/kubectl owner=root group=root mode=0755
+
+- name: Download hyperkuber
+  get_url: url='http://storage.googleapis.com/kubernetes-release/release/{{ kube_release }}/bin/linux/amd64/hyperkube' dest=/usr/local/bin/hyperkube
+- name: Make hyperkube executable
+  file: path=/usr/local/bin/hyperkube owner=root group=root mode=0755
+
+- name: Install kubelet service
+  copy: src=systemd/kubelet.service dest=/lib/systemd/system/kubelet.service
+  notify: [ kubelet ]
+
+- name: Install kube-proxy service
+  copy: src=systemd/kube-proxy.service dest=/lib/systemd/system/kube-proxy.service
+  notify: [ kube-proxy ]

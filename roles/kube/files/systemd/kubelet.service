@@ -1,0 +1,17 @@
+[Unit]
+Description=Kubernetes Kubelet
+Documentation=https://github.com/kubernetes/kubernetes
+Requires=docker.service
+After=docker.service
+
+[Service]
+ExecStart=/usr/local/bin/hyperkube kubelet \
+--address=127.0.0.1 \
+--api-servers=http://127.0.0.1:8080 \
+--config=/etc/kubernetes/manifests \
+--register-node=true
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

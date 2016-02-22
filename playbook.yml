@@ -1,0 +1,10 @@
+---
+- hosts: master
+  remote_user: admin
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars:
+    kube_release: v1.1.7
+  roles:
+    - kube-master

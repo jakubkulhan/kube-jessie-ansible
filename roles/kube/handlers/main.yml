@@ -1,0 +1,11 @@
+- name: docker
+  service: name=docker state=restarted
+
+- name: etcd
+  service: name=etcd state=restarted
+
+- name: kubelet
+  service: name=kubelet state=restarted
+
+- name: kube-proxy
+  service: name=kube-proxy state=restarted

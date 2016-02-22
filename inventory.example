@@ -1,0 +1,12 @@
+node01		ansible_ssh_host=192.168.0.1
+node02		ansible_ssh_host=192.168.0.2
+node03		ansible_ssh_host=192.168.0.3
+node04		ansible_ssh_host=192.168.0.4
+
+[master]
+node01
+
+[minion]
+node02
+node03
+node04
