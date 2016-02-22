@@ -37,3 +37,10 @@
   notify: [ kube-proxy ]
 - name: Enable kube-proxy service
   command: systemctl enable kube-proxy.service
+
+- file: path='{{ item.home }}/.kube' state=absent
+  with_items: '{{ kube_users }}'
+- file: path='{{ item.home }}/.kube' state=directory owner='{{ item.user }}' group='{{ item.user }}' mode=0700
+  with_items: '{{ kube_users }}'
+- template: src=kubeconfig.yml dest='{{ item.home }}/.kube/config' owner='{{ item.user }}' group='{{ item.user }}' mode=0600
+  with_items: '{{ kube_users }}'
