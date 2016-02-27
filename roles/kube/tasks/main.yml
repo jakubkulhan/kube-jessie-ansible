@@ -17,12 +17,16 @@
   notify: [ etcd ]
 
 - name: Download kubectl
-  get_url: url='http://storage.googleapis.com/kubernetes-release/release/{{ kube_release }}/bin/linux/amd64/kubectl' dest=/usr/local/bin/kubectl
+  get_url: url='http://storage.googleapis.com/kubernetes-release/release/{{ kube_release }}/bin/linux/amd64/kubectl' dest=/usr/local/bin/.kubectl.tmp force=yes
+- name: Move kubectl
+  command: mv /usr/local/bin/.kubectl.tmp /usr/local/bin/kubectl
 - name: Make kubectl executable
   file: path=/usr/local/bin/kubectl owner=root group=root mode=0755
 
 - name: Download hyperkube
-  get_url: url='http://storage.googleapis.com/kubernetes-release/release/{{ kube_release }}/bin/linux/amd64/hyperkube' dest=/usr/local/bin/hyperkube
+  get_url: url='http://storage.googleapis.com/kubernetes-release/release/{{ kube_release }}/bin/linux/amd64/hyperkube' dest=/usr/local/bin/.hyperkube.tmp force=yes
+- name: Move kubectl
+  command: mv /usr/local/bin/.hyperkube.tmp /usr/local/bin/hyperkube
 - name: Make hyperkube executable
   file: path=/usr/local/bin/hyperkube owner=root group=root mode=0755
 
@@ -38,9 +42,6 @@
 - name: Enable kube-proxy service
   command: systemctl enable kube-proxy.service
 
-- file: path='{{ item.home }}/.kube' state=absent
-  with_items: '{{ kube_users }}'
-- file: path='{{ item.home }}/.kube' state=directory owner='{{ item.user }}' group='{{ item.user }}' mode=0700
-  with_items: '{{ kube_users }}'
-- template: src=kubeconfig.yml dest='{{ item.home }}/.kube/config' owner='{{ item.user }}' group='{{ item.user }}' mode=0600
+- name: ~/.kube/config
+  include: kube-user.yml user={{ item }}
   with_items: '{{ kube_users }}'
