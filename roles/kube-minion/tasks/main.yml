@@ -1,0 +1,2 @@
+- name: kube=minion label
+  shell: kubectl --server=http://{{ kube_master_ip }}:8080 label --overwrite nodes {{ hostvars[inventory_hostname]['ansible_hostname'] }} kube=minion
