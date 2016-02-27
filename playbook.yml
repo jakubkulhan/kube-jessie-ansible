@@ -1,4 +1,3 @@
----
 - hosts: master
   remote_user: admin
   become: yes
@@ -15,6 +14,5 @@
     kubelet_bind_interface: eth0
     # TODO
     #kube_cloud_provider: aws
-
   roles:
     - kube-master
