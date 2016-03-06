@@ -11,7 +11,9 @@ ExecStart=/usr/local/bin/hyperkube kubelet \
 --config=/etc/kubernetes/manifests \
 --register-node=true \
 --maximum-dead-containers=0 \
---maximum-dead-containers-per-container=0
+--maximum-dead-containers-per-container=0 \
+--image-gc-low-threshold=40 \
+--image-gc-high-threshold=60
 Restart=always
 RestartSec=10
 
