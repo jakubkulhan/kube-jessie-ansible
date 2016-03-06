@@ -4,7 +4,7 @@
   become_user: root
   become_method: sudo
   vars:
-    kube_release: v1.1.8
+    kube_release: v1.2.0-beta.0
     kube_master_ip: 127.0.0.1
     kube_users:
       - user: root
