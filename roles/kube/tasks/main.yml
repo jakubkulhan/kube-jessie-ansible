@@ -1,3 +1,10 @@
+- name: Grub - cgroup_enable=memory swapaccount=1
+  lineinfile: dest=/etc/default/grub regexp='GRUB_CMDLINE_LINUX' line='GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"'
+  register: grub
+- name: Update grub
+  command: update-grub
+  when: grub.changed
+
 - name: Docker repo key
   apt_key: keyserver=pool.sks-keyservers.net id=58118E89F3A912897C070ADBF76221572C52609D
 - name: Docker repo
