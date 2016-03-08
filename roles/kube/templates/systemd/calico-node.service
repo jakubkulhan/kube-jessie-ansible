@@ -8,6 +8,7 @@ Requires=docker.service
 User=root
 Environment=ETCD_AUTHORITY={{ kube_master_ip }}:4001
 PermissionsStartOnly=true
+ExecStartPre=/usr/local/bin/calicoctl pool add 10.0.0.0/8 --ipip --nat-outgoing
 ExecStart=/usr/local/bin/calicoctl node --ip={{ hostvars[inventory_hostname]['ansible_' + kubelet_bind_interface].ipv4.address }} --detach=false
 Restart=always
 RestartSec=10
