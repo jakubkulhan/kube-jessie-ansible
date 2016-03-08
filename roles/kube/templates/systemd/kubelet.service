@@ -6,14 +6,16 @@ After=docker.service
 
 [Service]
 ExecStart=/usr/local/bin/hyperkube kubelet \
---address={{ hostvars[inventory_hostname]['ansible_' + kubelet_bind_interface]['ipv4']['address'] }} \
+--address={{ hostvars[inventory_hostname]['ansible_' + kubelet_bind_interface].ipv4.address }} \
 --api-servers=http://{{ kube_master_ip }}:8080 \
 --config=/etc/kubernetes/manifests \
 --register-node=true \
 --maximum-dead-containers=0 \
 --maximum-dead-containers-per-container=0 \
 --image-gc-low-threshold=40 \
---image-gc-high-threshold=60
+--image-gc-high-threshold=60 \
+--network-plugin=cni \
+--network-plugin-dir=/etc/cni/net.d
 Restart=always
 RestartSec=10
 

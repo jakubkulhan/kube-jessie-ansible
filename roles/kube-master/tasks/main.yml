@@ -1,7 +1,7 @@
-- name: rm /etc/kubernetes/*
-  file: path=/etc/kubernetes/* state=absent
+- name: /etc/kubernetes
+  file: path=/etc/kubernetes state=directory owner=root group=root mode=0755
 - name: /etc/kubernetes/manifests
-  file: path=/etc/kubernetes/manifests state=directory recurse=yes owner=root group=root mode=0755
+  file: path=/etc/kubernetes/manifests state=directory owner=root group=root mode=0755
 - name: /etc/kubernetes/manifests/kube-master.yml
   template: src=kubernetes/manifests/kube-master.yml dest=/etc/kubernetes/manifests/kube-master.yml owner=root group=root mode=0644
 - name: kube=master label

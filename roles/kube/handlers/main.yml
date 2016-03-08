@@ -1,11 +1,14 @@
 - name: docker
-  service: name=docker state=restarted
+  service: name=docker enabled=yes state=restarted
 
 - name: etcd
-  service: name=etcd state=restarted
+  service: name=etcd enabled=yes state=restarted
 
 - name: kubelet
-  service: name=kubelet state=restarted
+  service: name=kubelet enabled=yes state=restarted
 
 - name: kube-proxy
-  service: name=kube-proxy state=restarted
+  service: name=kube-proxy enabled=yes state=restarted
+
+- name: calico-node
+  service: name=calico-node enabled=yes state=restarted

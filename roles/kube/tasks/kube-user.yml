@@ -1,5 +1,3 @@
-- name: Remove previous ~/.kube for {{ user.user }}
-  file: path='{{ user.home }}/.kube' state=absent
 - name: Create new ~/.kube for {{ user.user }}
   file: path='{{ user.home }}/.kube' state=directory owner='{{ user.user }}' group='{{ user.user }}' mode=0700
 - name: Install ~/.kube/config for {{ user.user }}

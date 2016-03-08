@@ -13,7 +13,7 @@ spec:
     - apiserver
     - --bind-address={{ kube_master_ip }}
     - --insecure-bind-address={{ kube_master_ip }}
-    - --etcd-servers=http://127.0.0.1:4001
+    - --etcd-servers=http://{{ hostvars[inventory_hostname]['ansible_' + kubelet_bind_interface].ipv4.address }}:4001
     - --service-cluster-ip-range=10.0.0.1/24
     - --service-node-port-range=0-65535
     - --v=2

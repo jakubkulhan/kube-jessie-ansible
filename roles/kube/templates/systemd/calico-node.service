@@ -1,0 +1,16 @@
+[Unit]
+Description=calicoctl node
+Documentation=https://github.com/projectcalico/calico-containers/blob/master/docs/calicoctl/node.md#calicoctl-node
+After=docker.service
+Requires=docker.service
+
+[Service]
+User=root
+Environment=ETCD_AUTHORITY={{ kube_master_ip }}:4001
+PermissionsStartOnly=true
+ExecStart=/usr/local/bin/calicoctl node --ip={{ hostvars[inventory_hostname]['ansible_' + kubelet_bind_interface].ipv4.address }} --detach=false
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
