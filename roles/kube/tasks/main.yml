@@ -96,3 +96,10 @@
 - name: ~/.kube/config
   include: kube-user.yml user={{ item }}
   with_items: '{{ kube_users }}'
+
+- name: Install pip
+  apt: name=python-pip state=latest
+- name: Uninstall default distribution AWS CLI
+  apt: name=awscli state=absent
+- name: Install AWS CLI using pip
+  pip: name=awscli state=latest
