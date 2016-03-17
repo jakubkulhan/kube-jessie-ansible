@@ -5,6 +5,7 @@ Requires=docker.service
 After=docker.service
 
 [Service]
+ExecStartPre=/bin/mkdir -p /etc/kubernetes/manifests
 ExecStart=/usr/local/bin/hyperkube kubelet \
 --address={{ hostvars[inventory_hostname]['ansible_' + kubelet_bind_interface].ipv4.address }} \
 --api-servers=http://{{ kube_master_ip }}:8080 \

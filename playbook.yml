@@ -1,20 +1,23 @@
+- hosts: all
+  remote_user: admin
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+  - kube
+
 - hosts: master
   remote_user: admin
   become: yes
   become_user: root
   become_method: sudo
-  vars:
-    kube_release: v1.2.0
-    kube_master_ip: 127.0.0.1
-    kube_users:
-      - user: root
-        home: /root
-      - user: admin
-        home: /home/admin
-    kubelet_bind_interface: eth0
-    calicoctl_release: v0.17.0
-    calicocni_release: v1.1.0
-    # TODO
-    #kube_cloud_provider: aws
   roles:
-    - kube-master
+  - kube-master
+
+- hosts: minion
+  remote_user: admin
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+  - kube-minion

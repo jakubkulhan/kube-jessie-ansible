@@ -1,0 +1,10 @@
+kube_release: v1.2.0
+kube_master_ip: 127.0.0.1
+kube_users:
+- user: root
+  home: /root
+- user: admin
+  home: /home/admin
+kubelet_bind_interface: eth0
+calicoctl_release: v0.17.0
+calicocni_release: v1.1.0
