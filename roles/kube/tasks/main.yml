@@ -18,15 +18,15 @@
 
 - name: Install Docker
   apt: name=docker-engine state=latest
-  notify: [ docker ]
+  notify: [ daemon-reload, docker ]
 
 - name: Install Etcd
   apt: name=etcd state=latest
-  notify: [ etcd ]
+  notify: [ daemon-reload, etcd ]
 
 - name: Configure Etcd
   template: src=default/etcd dest=/etc/default/etcd
-  notify: [ etcd ]
+  notify: [ daemon-reload, etcd ]
 
 - name: Make downloads tmp dir
   file: path=/tmp/downloads owner=root group=root mode=0755 state=directory
@@ -73,23 +73,23 @@
   file: path=/etc/cni/net.d state=directory owner=root group=root mode=0755
 - name: /etc/cni/net.d/10-calico.conf
   template: src=cni/net.d/10-calico.conf dest=/etc/cni/net.d/10-calico.conf
-  notify: [ calico-node, kubelet ]
+  notify: [ daemon-reload, calico-node, kubelet ]
 
 - name: Install kubelet service
   template: src=systemd/kubelet.service dest=/lib/systemd/system/kubelet.service
-  notify: [ kubelet ]
+  notify: [ daemon-reload, kubelet ]
 - name: Enable kubelet service
   service: name=kubelet enabled=yes
 
 - name: Install kube-proxy service
   template: src=systemd/kube-proxy.service dest=/lib/systemd/system/kube-proxy.service
-  notify: [ kube-proxy ]
+  notify: [ daemon-reload, kube-proxy ]
 - name: Enable kube-proxy service
   service: name=kube-proxy enabled=yes
 
 - name: Install calico-node service
   template: src=systemd/calico-node.service dest=/lib/systemd/system/calico-node.service
-  notify: [ calico-node ]
+  notify: [ daemon-reload, calico-node ]
 - name: Enable calico-node service
   service: name=calico-node enabled=yes
 
