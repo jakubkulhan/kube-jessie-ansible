@@ -1,4 +1,4 @@
-kube_release: v1.2.2
+kube_release: v1.2.3
 kube_master_ip: 127.0.0.1
 kube_users:
 - user: root
