@@ -22,12 +22,12 @@ spec:
     command:
     - /hyperkube
     - controller-manager
-    - --master={{ kube_master_ip }}:8080
+    - --master={{ kube_master_ip }}:8081
     - --v=2
   - name: scheduler
     image: gcr.io/google_containers/hyperkube:{{ kube_release }}
     command:
     - /hyperkube
     - scheduler
-    - --master={{ kube_master_ip }}:8080
+    - --master={{ kube_master_ip }}:8081
     - --v=2

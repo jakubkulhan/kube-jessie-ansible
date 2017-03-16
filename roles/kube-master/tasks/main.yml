@@ -5,4 +5,4 @@
 - name: /etc/kubernetes/manifests/kube-master.yml
   template: src=kubernetes/manifests/kube-master.yml dest=/etc/kubernetes/manifests/kube-master.yml owner=root group=root mode=0644
 - name: kube=master label
-  shell: kubectl --server=http://{{ kube_master_ip }}:8080 label nodes -l kube=master kube- && kubectl --server=http://{{ kube_master_ip }}:8080 label nodes {{ hostvars[inventory_hostname]['ansible_fqdn'] }} kube=master
+  shell: kubectl --server=http://{{ kube_master_ip }}:8081 label nodes -l kube=master kube- && kubectl --server=http://{{ kube_master_ip }}:8081 label nodes {{ hostvars[inventory_hostname]['ansible_fqdn'] }} kube=master
